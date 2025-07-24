@@ -1,27 +1,42 @@
 package app.vheuijfx.ui.component;
 
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import app.vheuijfx.ui.view.EditorView;
+import app.vheuijfx.ui.view.ToolBarView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class CMenuBar extends MenuBar {
 
-    private Stage stg;
+    private ToolBarView toolBarView;
 
     private Menu createMnFile() {
         Menu file = new Menu("File");
         MenuItem mniNew = new MenuItem("New");
+        mniNew.setOnAction((_) -> {
+            System.out.println("trying...");
+            if (toolBarView != null) {
+                toolBarView.setCenter(new EditorView());
+            } else {
+                System.out.println("Has been a error");
+            }
+        });
         MenuItem mniOpen = new MenuItem("Open...");
-        // Separator
-        // Recent menu
-        // Separator
         MenuItem mniExit = new MenuItem("Exit");
-        file.getItems().addAll(mniNew, mniOpen, mniExit);
+        file.getItems().addAll(mniNew, mniOpen);
+        file.getItems().add(new SeparatorMenuItem());
+        // Show resents
+        file.getItems().add(new SeparatorMenuItem());
+        file.getItems().add(mniExit);
         return file;
+    }
+
+    private Menu createMnEdit() {
+        return new Menu("Edit");
+    }
+
+    private Menu createMnMap() {
+        return new Menu("Map");
     }
 
     private Menu createMnTools() {
@@ -30,6 +45,10 @@ public class CMenuBar extends MenuBar {
         MenuItem mniOptions = new MenuItem("Options...");
         tools.getItems().addAll(mniPrefabFactory, mniOptions);
         return tools;
+    }
+
+    private Menu createMnWindow() {
+        return new Menu("Window");
     }
 
     private Menu createMnHelp() {
@@ -49,8 +68,8 @@ public class CMenuBar extends MenuBar {
         return help;
     }
 
-    public CMenuBar(Stage stg) {
-        this.stg = stg;
+    public CMenuBar(ToolBarView toolBarView) {
+        this.toolBarView = toolBarView;
         setBackground(Background.fill(Color.WHITE));
         getMenus().addAll(createMnFile(), createMnTools(), createMnHelp());
     }

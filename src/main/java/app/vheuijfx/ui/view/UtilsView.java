@@ -8,7 +8,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 public class UtilsView extends VBox {
 
@@ -16,7 +15,6 @@ public class UtilsView extends VBox {
         VBox vbxRoot = new VBox();
         vbxRoot.setSpacing(10);
         vbxRoot.setPadding(new Insets(10));
-        // Texture filter
         VBox vbxTextureFilter = new VBox();
         vbxTextureFilter.setSpacing(5);
         Label lblTextureGroup = new Label("Texture Group:");
@@ -33,8 +31,8 @@ public class UtilsView extends VBox {
         hbxTextureSelect.setSpacing(5);
         Pane pnTexturePreview = new Pane();
         pnTexturePreview.setBackground(Background.fill(Color.LIGHTGRAY));
-        pnTexturePreview.setPrefWidth(120);
-        pnTexturePreview.setPrefHeight(110);
+        pnTexturePreview.setMinWidth(100);
+        pnTexturePreview.setMinHeight(100);
         hbxTextureSelect.getChildren().add(pnTexturePreview);
         VBox vbxTextureOptions = new VBox();
         vbxTextureOptions.setSpacing(5);
@@ -55,10 +53,11 @@ public class UtilsView extends VBox {
         vbxRoot.setSpacing(5);
         vbxRoot.setPadding(new Insets(10));
         HBox hbxMoveTo = new HBox();
+        hbxMoveTo.setMinHeight(40);
         hbxMoveTo.setSpacing(5);
         hbxMoveTo.setAlignment(Pos.CENTER);
         Label lblMoveSelected = new Label("Move\nSelected:");
-        lblMoveSelected.setPrefWidth(50);
+        lblMoveSelected.setMinHeight(30);
         Button btnToWorld = new Button("to World");
         btnToWorld.setPrefWidth(65);
         Button btnToEntity = new Button("to Entity");
@@ -78,6 +77,7 @@ public class UtilsView extends VBox {
         hbxFaces.setAlignment(Pos.CENTER);
         HBox hbxFace = new HBox();
         hbxFace.setSpacing(5);
+        hbxFaces.setAlignment(Pos.CENTER);
         Label lblFaces = new Label("Faces:");
         Spinner<Integer> spnFaces = new Spinner<>();
         spnFaces.setPrefWidth(70);
@@ -97,7 +97,8 @@ public class UtilsView extends VBox {
         vbxRoot.setSpacing(5);
         Label lblVis = new Label("VisGroups:");
         ListView<String> lvVisGroups = new ListView<>();
-        lvVisGroups.setPrefHeight(150);
+        lvVisGroups.setMinHeight(125);
+        lvVisGroups.setMaxHeight(125);
         lvVisGroups.setPrefWidth(100);
         HBox hbxVisGroupsOptions = new HBox();
         hbxVisGroupsOptions.setAlignment(Pos.CENTER);

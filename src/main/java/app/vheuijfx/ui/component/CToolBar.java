@@ -3,6 +3,8 @@ package app.vheuijfx.ui.component;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 
 public class CToolBar extends ToolBar {
 
@@ -86,6 +88,7 @@ public class CToolBar extends ToolBar {
     }
 
     public CToolBar() {
+        setBackground(Background.fill(Color.WHITE));
         getItems().addAll(createBtnToggleGrid(), createBtn3DGrid(), createBtnLessGrid(), createBtnMoreGrid());
         getItems().add(new Separator());
         getItems().addAll(createBtnLWinState(), createBtnSWinState());
