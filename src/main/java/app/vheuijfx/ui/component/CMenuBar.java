@@ -2,34 +2,56 @@ package app.vheuijfx.ui.component;
 
 import app.vheuijfx.ui.editor.RawMapEditor;
 import app.vheuijfx.ui.view.EditorView;
+import app.vheuijfx.ui.view.OptionsView;
 import app.vheuijfx.ui.view.ToolBarView;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 public class CMenuBar extends MenuBar {
 
     private ToolBarView toolBarView;
+    private boolean isEditorOpened = false;
+    private Menu mnFile;
 
     private Menu createMnFile() {
-        Menu file = new Menu("File");
+        mnFile = new Menu("File");
+        MenuItem mniNew = createMniNew();
+        MenuItem mniOpen = new MenuItem("Open...");
+        MenuItem mniExit = new MenuItem("Exit");
+        mnFile.getItems().addAll(mniNew, mniOpen);
+        mnFile.getItems().add(new SeparatorMenuItem());
+        mnFile.getItems().add(new SeparatorMenuItem());
+        mnFile.getItems().add(mniExit);
+        return mnFile;
+    }
+    private MenuItem createMniNew() {
         MenuItem mniNew = new MenuItem("New");
         mniNew.setOnAction((_) -> {
-            System.out.println("trying...");
+            if (!isEditorOpened) {
+                getMenus().add(1, createMnEdit());
+                getMenus().add(2, createMnMap());
+                getMenus().add(4, createMnWindow());
+                mnFile.getItems().add(1, createMniClose());
+                isEditorOpened = true;
+            }
             if (toolBarView != null) {
                 toolBarView.setCenter(new RawMapEditor());
             } else {
                 System.out.println("Has been a error");
             }
         });
-        MenuItem mniOpen = new MenuItem("Open...");
-        MenuItem mniExit = new MenuItem("Exit");
-        file.getItems().addAll(mniNew, mniOpen);
-        file.getItems().add(new SeparatorMenuItem());
-        // Show resents
-        file.getItems().add(new SeparatorMenuItem());
-        file.getItems().add(mniExit);
-        return file;
+        return mniNew;
+    }
+    private MenuItem createMniClose() {
+        MenuItem mniClose = new MenuItem("Close");
+        mniClose.setOnAction((_) -> {
+            if (toolBarView != null) {
+                toolBarView.setCenter(new BorderPane());
+            }
+        });
+        return mniClose;
     }
 
     private Menu createMnEdit() {
@@ -44,6 +66,9 @@ public class CMenuBar extends MenuBar {
         Menu tools = new Menu("Tools");
         MenuItem mniPrefabFactory = new MenuItem("Prefab Factory...");
         MenuItem mniOptions = new MenuItem("Options...");
+        mniOptions.setOnAction(_ -> {
+            new OptionsView(toolBarView);
+        });
         tools.getItems().addAll(mniPrefabFactory, mniOptions);
         return tools;
     }
