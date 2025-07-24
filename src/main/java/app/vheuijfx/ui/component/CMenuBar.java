@@ -1,5 +1,6 @@
 package app.vheuijfx.ui.component;
 
+import app.vheuijfx.ui.editor.RawMapEditor;
 import app.vheuijfx.ui.view.EditorView;
 import app.vheuijfx.ui.view.ToolBarView;
 import javafx.scene.control.*;
@@ -16,7 +17,7 @@ public class CMenuBar extends MenuBar {
         mniNew.setOnAction((_) -> {
             System.out.println("trying...");
             if (toolBarView != null) {
-                toolBarView.setCenter(new EditorView());
+                toolBarView.setCenter(new RawMapEditor());
             } else {
                 System.out.println("Has been a error");
             }
